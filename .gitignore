@@ -1,0 +1,20 @@
+# Kanata executables: download separately on each machine.
+/kanata
+/kanata_macos*
+/kanata-macos*
+/bin/
+
+# Downloaded installers and archives.
+*.dmg
+*.pkg
+*.zip
+*.tar.gz
+
+# Machine-local agent configuration.
+.claude/
+.pi/
+
+# OS / Python generated files.
+.DS_Store
+__pycache__/
+*.py[cod]
