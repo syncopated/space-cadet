@@ -136,6 +136,18 @@ macOS Kanata requires root access to communicate with the virtual HID daemon. Re
 
 Start manually before setting up automatic startup. For launch-at-boot setup and troubleshooting, use the [official macOS guide](https://github.com/jtroo/kanata/blob/main/docs/setup-macos.md).
 
+## Troubleshooting
+
+**`virtual_hid_keyboard_ready true` repeats about once per second.** This is harmless and means the virtual keyboard is connected. The VirtualHIDDevice daemon reports its status every second, and some Kanata builds print each report directly to the terminal, bypassing Kanata's logging, so `--quiet` does not hide it. Whether it appears depends on how your Kanata binary was built. To hide it:
+
+```sh
+sudo kanata --cfg layouts/qwerty.cfg 2>&1 | grep --line-buffered -v virtual_hid_keyboard_ready
+```
+
+Investigate if it shows `false`, alternates between `true` and `false`, or remapped keys stop working. Common causes are Karabiner-Elements running alongside Kanata, the daemon not running, or a driver version that doesn't match your Kanata version (see step 3).
+
+**"Waiting for a connection from Karabiner-Core-Service to Karabiner-VirtualHIDDevice-Daemon".** This dialog comes from Karabiner-Elements, not Kanata. Quit Karabiner-Elements, or uninstall it and use the standalone driver package, before running Kanata.
+
 ## Updating the diagrams
 
 The editable SVGs and rendered PNGs are in [`images/`](images/). The generator reads the actual configs:
