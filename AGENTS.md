@@ -8,8 +8,10 @@ Kanata keyboard remapping configuration for macOS (Apple Silicon). Kanata interc
 
 ## Running
 
+Commands assume the Kanata binary is on `PATH` as `kanata`; substitute its path if it lives elsewhere (see the README).
+
 ```sh
-sudo ./kanata_macos_arm64 --cfg layouts/qwerty.cfg
+sudo kanata --cfg layouts/qwerty.cfg
 ```
 
 - Requires the Karabiner DriverKit VirtualHIDDevice system extension to be installed and approved in System Settings.
@@ -22,7 +24,7 @@ sudo ./kanata_macos_arm64 --cfg layouts/qwerty.cfg
 
 Configs live in `layouts/`: `colemak-dh.cfg` and `qwerty.cfg`. They use Kanata's S-expression format. The README documents setup and layout behavior. Binaries and machine-local agent settings must not be committed.
 
-Validate changes with `./kanata_macos_arm64 --check --cfg layouts/qwerty.cfg` (and likewise for Colemak-DH). After layout changes, regenerate SVGs with `python3 images/generate-layouts.py` and PNGs with `rsvg-convert`; see the README.
+Validate changes with `kanata --check --cfg layouts/qwerty.cfg` (and likewise for Colemak-DH). After layout changes, regenerate SVGs with `python3 images/generate-layouts.py` and PNGs with `rsvg-convert`; see the README.
 
 Key blocks:
 

@@ -87,14 +87,15 @@ Download a standard macOS ARM64 binary from the official [Kanata releases](https
 
 Prefer the standard build, **not a `cmd_allowed` / command-enabled build**. These layouts do not need external command execution. `cmd` refers to running external programs, not the macOS Command key; normal Command shortcuts do not require it.
 
-Place the download in the repository root as `kanata_macos_arm64`, then make it executable:
+Put the binary anywhere you like and make it executable. It's easiest to rename it to `kanata` and place it in a directory on your `PATH`, so the commands below work as written:
 
 ```sh
-chmod +x ./kanata_macos_arm64
-./kanata_macos_arm64 --version
+chmod +x ~/Downloads/kanata_macos_arm64   # adjust to your download's filename
+sudo mv ~/Downloads/kanata_macos_arm64 /usr/local/bin/kanata
+kanata --version
 ```
 
-Release filenames can differ; rename your downloaded binary to match the commands above. The local binary is ignored by Git. Alternatively, install Kanata on your `PATH` and substitute `kanata` for `./kanata_macos_arm64` in the commands below.
+Because Kanata runs with `sudo`, prefer a root-owned location such as `/usr/local/bin` over a user-writable one such as `~/bin`: any process running as your user could replace a user-writable binary. If you keep it somewhere else, use its path (e.g. `./kanata_macos_arm64`) wherever the commands below say `kanata`. If `sudo kanata` reports `command not found`, run `sudo "$(command -v kanata)" ...` or use the full path. Binaries placed in this repository are ignored by Git.
 
 ### 3. Install the macOS virtual keyboard driver
 
@@ -115,18 +116,18 @@ In **System Settings → Privacy & Security**, grant the required **Input Monito
 From the repository root, validate without grabbing the keyboard:
 
 ```sh
-./kanata_macos_arm64 --check --cfg layouts/qwerty.cfg
-./kanata_macos_arm64 --check --cfg layouts/colemak-dh.cfg
+kanata --check --cfg layouts/qwerty.cfg
+kanata --check --cfg layouts/colemak-dh.cfg
 ```
 
 Then run **one** layout:
 
 ```sh
 # QWERTY
-sudo ./kanata_macos_arm64 --cfg layouts/qwerty.cfg
+sudo kanata --cfg layouts/qwerty.cfg
 
 # Or Colemak-DH (stop the other instance first)
-sudo ./kanata_macos_arm64 --cfg layouts/colemak-dh.cfg
+sudo kanata --cfg layouts/colemak-dh.cfg
 ```
 
 macOS Kanata requires root access to communicate with the virtual HID daemon. Review configs before running them with `sudo`; neither config enables external command execution.
